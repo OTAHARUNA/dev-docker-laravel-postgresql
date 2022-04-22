@@ -95,14 +95,9 @@ class UsersController extends Controller
         $upload_image = $request->file('image');
 
         if($upload_image){
-            //アップロードされた画像を保存する
-         //   $path = $upload_image->store('uploads',"public");
             //保存するファイルに名前をつける
             $fileName = $upload_image->getClientOriginalName();
             $upload_image->storeAs('uploads',$fileName,"public");
-//Laravel直下のpublicディレクトリに新フォルダをつくり保存する
- //           $target_path = public_path('/public/images/uploads/');
- //           $upload_image->move($target_path,$fileName);
 
          }else{
         //画像が登録されなかった時はから文字をいれる
@@ -134,15 +129,10 @@ class UsersController extends Controller
                 ]);
         }
 
-            if ($validator->fails()) {
-                return back()->withErrors($validator)->withInput();
-                echo '間違ってます';
-            }
-
-  //username・mail・bio変更できた！
-
-
-
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+            echo '間違ってます';
+        }
         return redirect ('/top')->with('更新出来ました');
     }
 
@@ -160,10 +150,8 @@ class UsersController extends Controller
         $is_followed = $login_user->isFollowed($id);
 
         $timelines = Post::where('user_id', $id)->orderBy('created_at', 'DESC')->get();
-        //dd($timelines); //ここはOK postテーブル内クリックしたユーザ情報全てOK
 
         $myuser = \App\User::find($id);
-        //dd($myuser); //userテーブル内クリックしたユーザー情報データ全てOK
 
 
         return view('users.show', [

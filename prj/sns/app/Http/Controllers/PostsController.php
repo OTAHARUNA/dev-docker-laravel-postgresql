@@ -14,11 +14,6 @@ use Auth;
 
 class PostsController extends Controller
 {
-    //
-  //  public function index(){
-  //      return view('posts.index');
-  //  }
-
   //一覧表示
     public function index(){
     //Userの全データを取得 $posts = Post::orderBy('created_at', 'desc')->get();
@@ -33,11 +28,6 @@ class PostsController extends Controller
 
         //
         $followers =Post::whereIn('user_id',$follower)->orwhere('user_id',$id)->orderBy('id','desc')->get();
-        //dd($followers);
-    //    $posts = DB::table('posts')->whereIn('user_id',$follow)->get();
-    //フォローしているユーザー/ログインＩＤの投稿    dd($posts);
- //userでのフォローしているひとの取得       dd(Auth::user()->followings()->get());
-
         //以下、Id順に投稿並びかえる→投稿日順に変更後ほど。ページネーションは9つの投稿取得
  //      $posts = Post::orderBy('id','desc')->paginate(9);\
 
@@ -47,7 +37,7 @@ class PostsController extends Controller
     //以下、要確認
 
 
-    //作成・保存まで　投稿処理
+    //作成・保存まで 投稿処理
     public function store(Request $request, Post $posts)
     {
         //今ログインしている人
@@ -75,11 +65,11 @@ class PostsController extends Controller
 
     //削除機能
     public function destroy($id) {
-      $posts = \App\Post::find($id);
-      //ログインしているＩＤとクリックしたユーザーＩＤ一緒？
-      if (\Auth::id() == $posts->user->id) {
-        $posts->delete();
-      }
+        $posts = \App\Post::find($id);
+        //ログインしているＩＤとクリックしたユーザーＩＤ一緒？
+        if (\Auth::id() == $posts->user->id) {
+            $posts->delete();
+        }
 
         return back();
     }
