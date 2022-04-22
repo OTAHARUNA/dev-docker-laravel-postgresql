@@ -3,11 +3,13 @@ version: '3'
 volumes:
   db-data:
 
+    null
 services:
-  php-cli: # Web server for remote debug on PhpStorm.
+  php-cli:
+    # Web server for remote debug on PhpStorm.
     build: ./docker
     volumes:
-      - ./prj:/var/www/html/
+      - ./prj/sns:/var/www/html/
       - ./docker/php.ini:/usr/local/etc/php/php.ini
     working_dir: /var/www/html
     container_name: php-cli
@@ -18,16 +20,16 @@ services:
   web:
     build: ./docker
     ports:
-      - 80:80
+      - 8080:80
     volumes:
-      - ./prj:/var/www/html/
+      - ./prj/sns:/var/www/html/
       - ./docker/php.ini:/usr/local/etc/php/php.ini
     working_dir: /var/www/html
     container_name: web
     depends_on:
       - postgres
     restart: always
-  
+
   postgres:
     image: postgres:10.8
     ports:
@@ -35,7 +37,8 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    environment: # Set the postgres user name, password and database name.
+    environment:
+      # Set the postgres user name, password and database name.
       POSTGRES_USER: default
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: postgres
@@ -46,12 +49,13 @@ services:
   pgadmin4:
     image: dpage/pgadmin4:4.2
     ports:
-        - 8000:80
+      - 8000:8080
     volumes:
-        - ./docker/pgadmin4:/var/lib/pgadmin
-    environment: # Set the login information of pgAdmin 4.
-        PGADMIN_DEFAULT_EMAIL: root
-        PGADMIN_DEFAULT_PASSWORD: root
+      - ./docker/pgadmin4:/var/lib/pgadmin
+    environment:
+      # Set the login information of pgAdmin 4.
+      PGADMIN_DEFAULT_EMAIL: root
+      PGADMIN_DEFAULT_PASSWORD: root
     hostname: pgadmin4
     container_name: pgadmin4
     depends_on:
