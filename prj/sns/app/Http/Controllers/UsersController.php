@@ -91,7 +91,6 @@ class UsersController extends Controller
         }
 
         $validator->validate();
-  //  dd(Hash::check($request->input('nowpassword'), Auth::user()->password));出来ている
 
         $upload_image = $request->file('image');
 
