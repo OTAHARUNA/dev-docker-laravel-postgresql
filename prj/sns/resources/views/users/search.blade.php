@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
   <div class="col-12">
-    <div class="mt-5 mb-5 ml-5 pl-5">
+    <div class="mt-5 mb-5 ml pl-5">
         <div class="d-flex">
           <form action="/search">
             {{ csrf_field() }}
