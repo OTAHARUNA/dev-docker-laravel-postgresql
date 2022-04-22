@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -35,5 +37,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request){
+        if($request->isMethod('post')){
+
+            $data=$request->only('mail','password');
+            // ログインが成功したら、トップページへ
+            //↓ログイン条件は公開時には消すこと
+            if(Auth::attempt($data)){
+                \Log::debug('ログインできました');
+                return redirect('/top');
+            }else{
+                echo 'メールアドレス又はパスワードが違います';
+            }
+
+        }
+        return view("auth.login");
+    }
+
+    public function logout(Request $request){
+        Auth::Logout();
+        return redirect("/login");//ログアウト時の遷移先
     }
 }
