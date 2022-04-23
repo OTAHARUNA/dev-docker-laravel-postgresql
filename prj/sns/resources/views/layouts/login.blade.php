@@ -77,7 +77,7 @@
                             <p class="pl-2 pb-2">{{Auth::user()->followers()->get()->count()}}名</p>
                         </div>
                         <p class="btn"><button id="list_button"><a href="/follower-list">フォロワーリスト</a></button></p>
-                        <p class="mt-5 text-center"><button id="search_button"><a href="/search">ユーザー検索</a></button></p>
+                        <p class="mt-5"><button id="list_button" class="mx-auto"><a href="/search">ユーザー検索</a></button></p>
                     </div>
 
                 </div>
