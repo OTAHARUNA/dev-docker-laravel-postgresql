@@ -13,13 +13,20 @@
             @if(Auth::user()->isFollowing($user->id))
             <form action="{{ route('yourprofile', ['id' => $user->id]) }}">
                 {{ csrf_field() }}
-                <button class="but">
-                    @if( $user->image == '/images/dawn.png')
-                    <img src="{{ $user->image }}">
-                    @else
-                    <img src="{{ asset('storage/uploads/' .$user->image) }}" alt="dawn.sns" class="rounded-circle" width="50" height="50">
-                    @endif
-                </button>
+                <table>
+                    <th>
+                    <td class="text-center">
+                        <button class="but">
+                            @if( $user->image == '/images/dawn.png')
+                            <img src="{{ $user->image }}">
+                            @else
+                            <img src="{{ asset('storage/uploads/' .$user->image) }}" alt="dawn.sns" class="rounded-circle" width="50" height="50">
+                            @endif
+                        </button>
+                        <p class="m-2"><span class="font-weight-bold">{{ $user->username }}</span></p>
+                    </td>
+                    </th>
+                </table>
             </form>
             @endif
             @endforeach
@@ -35,13 +42,20 @@
             @if(Auth::user()->isFollowed($user->id))
             <form action="{{ route('yourprofile', ['id' => $user->id]) }}">
                 {{ csrf_field() }}
-                <button class="but">
-                    @if( $user->image == '/images/dawn.png')
-                    <img src="{{ $user->image }}">
-                    @else
-                    <img src="{{ asset('storage/uploads/' .$user->image) }}" alt="dawn.sns" class="rounded-circle" width="50" height="50">
-                    @endif
-                </button>
+                <table>
+                    <th>
+                    <td class="text-center">
+                        <button class="but">
+                            @if( $user->image == '/images/dawn.png')
+                            <img src="{{ $user->image }}">
+                            @else
+                            <img src="{{ asset('storage/uploads/' .$user->image) }}" alt="dawn.sns" class="rounded-circle" width="50" height="50">
+                            @endif
+                        </button>
+                        <p class="m-2"><span class="font-weight-bold">{{ $user->username }}</span></p>
+                    </td>
+                    </th>
+                </table>
             </form>
             @endif
             @endforeach

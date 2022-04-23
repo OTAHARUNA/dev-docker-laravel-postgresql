@@ -7,6 +7,9 @@ body {}
 a {
     text-decoration: none !important;
 }
+form img:hover {
+    cursor: pointer;
+}
 
 /* header */
 header {
