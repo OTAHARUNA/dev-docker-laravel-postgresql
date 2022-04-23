@@ -59,7 +59,7 @@
                             @else
                             <img src="{{ asset('storage/uploads/' .auth()->user()->image) }}" alt="dawn.sns" class="rounded-circle" width="50" height="50">
                             @endif
-                            <textarea id="posts" name="text" required autocomplete="text" rows="3" width="500" maxlength="150" placeholder="今何している？？" class="col-8"></textarea>
+                            <textarea id="post_texts" name="text" required autocomplete="text" rows="3" width="500" maxlength="150" placeholder="今何している？？" class="col-8 pt-2"></textarea>
                             <button class="but"><img src="images/post.png"></button>
                         </div>
                     </div>
@@ -179,21 +179,21 @@
                                     <form action="{{ route('posts.edit', $post->id) }}">
                                         {{ csrf_field() }}
                                         {{method_field('PUT')}}
-                                        <!-- 1.モーダル表示のためのボタン -->
-                                        <span data-toggle="modal" data-target="#modal-example"><img src="images/edit.png" id="edit"></span>
-                                        <!-- 2.モーダルの配置 -->
-                                        <div class="modal" id="modal-example" tabindex="-1">
-                                            <div class="modal-dialog d-flex align-items-center">
-                                                <div class="modal-content">
-                                                    <div class="modal-body">
-                                                        <textarea name='texts' required autocomplete="text" rows="5">{{ old('posts') ?: $post->posts}}</textarea>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button><img src="images/edit.png"></button>
-                                                    </div>
+                                        <div class="modal_wrap">
+                                            <input id="trigger" type="checkbox">
+                                            <div class="modal_overlay">
+                                                <label for="trigger" class="modal_trigger"></label>
+                                                <div class="modal_content">
+                                                    <label for="trigger" class="close_button">✖️</label>
+                                                    <textarea id="post_texts" name='texts' required autocomplete="text" rows="5">{{ old('posts') ?: $post->posts}}</textarea>
+                                                    <button><img src="images/edit.png" id="edit"></button>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- モーダルイベント発火元のボタン -->
+                                        <label for="trigger" class="open_button"><img src="images/edit.png" id="edit"></label>
+
+                                        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
                                     </form>
                                 </div>
 
